@@ -3,9 +3,9 @@ use std::cmp::min;
 use image::{Rgb, ImageBuffer, RgbImage};
 
 fn main() {
-    const MAX_SEARCH_LENGTH:u32 = 5000;
+    const MAX_SEARCH_LENGTH:u32 = 10000;
     const RESOLUTION:f64 = 0.001; // lower is better
-    const X_BOUND:f64 = 10.0;
+    const X_BOUND:f64 = 4.0;
     const INITIAL_POP:f64 = 0.5; // amount of population alive(0.5 = 50%)
 
     let mut r:f64 = 0.0;
@@ -52,7 +52,7 @@ fn main() {
         }
     }
 
-    img.save(format!("output.png")).unwrap();
+    img.save(format!("output_{:0>8}.png", MAX_SEARCH_LENGTH)).unwrap();
 
 
 }
