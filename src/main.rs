@@ -1,6 +1,6 @@
-use std::cmp::min;
+use std::{cmp::min};
 
-use image::{Rgb, ImageBuffer, RgbImage};
+use image::{Rgb, RgbImage};
 
 fn main() {
     const MAX_SEARCH_LENGTH:u32 = 10000;
@@ -38,25 +38,25 @@ fn main() {
 
         log_values.push(vals);
 
-        r += 0.001;
+        r += RESOLUTION;
         r = (r * 1000.0).round() / 1000.0;
     }
 
     // Draw image
-    let mut img = RgbImage::new((X_BOUND/RESOLUTION) as u32,(1.0/RESOLUTION) as u32);
+    let mut img = RgbImage::new(((X_BOUND/RESOLUTION*1000.0).round()/1000.0) as u32,((1.0/RESOLUTION*1000.0).round() / 1000.0) as u32);
     
     for (i, r_vals) in log_values.iter().enumerate() {
         for val in r_vals {
-            // println!("Put pixel {}, {}", i, val/RESOLUTION);
+            println!("Put pixel {}, {}", i, val/RESOLUTION);
             img.put_pixel(min(i as u32,((X_BOUND/RESOLUTION) as u32) - 1), (val/RESOLUTION) as u32, Rgb([255,255,255]))
         }
     }
 
-    img.save(format!("output_{:0>8}.png", MAX_SEARCH_LENGTH)).unwrap();
+    img.save(format!("output.png")).unwrap();
 
 
 }
 
-fn logistic(rate: f64, pop: f64) -> f64{
+fn logistic(rate: f64, pop: f64) -> f64 {
     rate * pop * (1.0 - pop)
 }
